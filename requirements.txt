@@ -1,0 +1,60 @@
+
+--- Core LLM & API Interaction ---
+
+openai>=1.0.0
+instructor>=1.0.0
+tenacity>=8.0.0
+
+--- Data Processing & Ontology ---
+
+pandas>=2.0.0
+numpy>=1.24.0
+owlready2>=0.45.0
+openpyxl>=3.1.0  # For Excel export/import if needed
+
+--- Web Scraping & Corpus Building ---
+
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+selenium>=4.15.0
+undetected-chromedriver>=3.5.0
+webdriver-manager>=4.0.0
+newspaper3k>=0.2.8
+gnews>=0.3.6
+ads>=0.12.3      # NASA ADS API
+pyalex>=0.12     # OpenAlex API
+pymupdf>=1.23.0  # For 'import fitz' (PDF processing)
+
+--- NLP & Deep Learning (NER Models) ---
+
+torch>=2.0.0
+transformers>=4.35.0
+datasets>=2.14.0
+sentence-transformers>=2.2.2
+seqeval>=1.2.2
+pytorch-crf>=0.7.2
+nltk>=3.8.1
+spacy>=3.7.0
+
+--- Knowledge Graph & Database ---
+
+neo4j>=5.14.0
+
+--- Visualization & Application (Streamlit) ---
+
+streamlit>=1.28.0
+pyvis>=0.3.2
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+--- LangChain (for KBQA) ---
+
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-openai>=0.0.5
+langchain-core>=0.1.0
+
+--- Utilities ---
+
+tqdm>=4.66.0
+python-dotenv>=1.0.0  # Recommended for managing API keys in .env
