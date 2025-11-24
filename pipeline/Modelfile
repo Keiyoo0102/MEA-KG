@@ -1,0 +1,25 @@
+# Ollama Modelfile for MEA-KG
+# 作用：定义一个融合了 LoRA 权重的自定义模型
+# 使用方法：在终端运行 `cd pipeline` 然后 `ollama create mea-kg-model -f Modelfile`
+
+# 1. 指定基础模型 (必须先在 Ollama 中 pull 过)
+# 如果您的基础模型是 gpt-oss:20b，请保持原样
+FROM gpt-oss:20b
+
+# 2. 指定 LoRA 适配器路径 (关键配置)
+# 这里使用的是相对路径，指向 experiments 阶段生成的 lora_output 文件夹
+# 确保您的目录结构中 ../data/experiments/lora_output 存在且包含 adapter_model.bin
+ADAPTER ../data/experiments/lora_output
+
+# 3. 设置系统提示词 (System Prompt)
+# 这里预设了 MEA-KG 的专家人设，这样在 Python 代码中只需发送用户指令即可
+SYSTEM """
+You are an expert Knowledge Graph Engineer for the Mars-Earth Analogs (MEA) domain.
+Your task is to extract structured knowledge triplets from scientific text according to the provided schema constraints.
+Strictly follow the JSON output format.
+"""
+
+# 4. 模型推理参数 (可选微调)
+# 设置 temperature 为 0 确保提取结果稳定
+PARAMETER temperature 0.0
+PARAMETER num_ctx 4096
