@@ -1,13 +1,11 @@
 import os
 import logging
-import torch
-from transformers import BitsAndBytesConfig
 
 # --- 日志配置 ---
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 )
 
 # --- 路径配置 (使用绝对路径) ---
@@ -27,7 +25,7 @@ NEWS_DIR = os.path.join(CORPUS_DIR, 'news')
 WEB_DIR = os.path.join(CORPUS_DIR, 'web')
 
 # 3. 输入：LoRA 微调权重 (来自 experiments 阶段)
-# 指向 eval_llm_lora.py 训练输出的文件夹
+# 如果您运行了 eval_llm_lora.py，适配器会保存在这里
 LORA_ADAPTER_DIR = os.path.join(PROJECT_ROOT, 'data', 'experiments', 'lora_output')
 
 # 4. 输出：提取结果
@@ -37,28 +35,20 @@ EXTRACTION_RESULTS_PATH = os.path.join(OUTPUT_DIR, 'extraction_results.jsonl')
 # 确保输出目录存在
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# --- 模型配置 (本地加载关键部分) ---
+# --- 模型配置 ---
 
-# 1. 基础模型路径 (必须是 Hugging Face 格式)
-# 请修改为您本地 gpt-oss:20b 的实际 HF 格式文件夹路径，或者 HuggingFace ID
-# 例如: "meta-llama/Meta-Llama-3-8B" 或 "C:/Models/gpt-oss-20b"
-BASE_MODEL_PATH = "meta-llama/Meta-Llama-3-8B" 
+# [关键修改] 指向微调后的模型
+# 注意：Ollama 无法直接加载 .bin/.safetensors 适配器文件。
+# 您需要创建一个 Modelfile (FROM gpt-oss:20b -> ADAPTER /path/to/lora)，然后运行 `ollama create mea-kg-model`
+OLLAMA_MODEL_NAME = "mea-kg-model" # 建议将微调后的模型命名为此名称
+OLLAMA_BASE_URL = "http://127.0.0.1:11434/v1"
+OLLAMA_API_KEY = "ollama"
 
-# 2. 量化配置 (4-bit, 节省显存)
-# 这必须与 eval_llm_lora.py 中的训练配置保持一致
-BNB_CONFIG = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.float16,
-    bnb_4bit_use_double_quant=True,
-)
-
-# 3. 设备配置
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+# 备用：如果没有微调，回退到基础模型
+# OLLAMA_MODEL_NAME = "gpt-oss:20b"
 
 # --- 提取参数 ---
-# [重要] 本地加载大模型显存占用极高，必须强制单线程 (MAX_WORKERS = 1)
-# 否则多进程会重复加载模型导致 OOM (Out Of Memory)
-MAX_WORKERS = 1 
+# 本地大模型推理显存占用高，建议由 1 开始测试
+MAX_WORKERS = 1 
 # 文本分块大小
 CHUNK_SIZE = 2048
