@@ -1,0 +1,50 @@
+SYNTHETIC CORPUS SAMPLE — MEA-KG Project
+=========================================
+NOTE: This file contains SYNTHETIC text generated for reviewer reproducibility
+testing ONLY.  It does not represent real published scientific findings.
+Replace with the actual pre-processed corpus for full pipeline execution.
+
+--- Document 1: Utopia Planitia Polygonal Terrain ---
+Polygonal terrain in Utopia Planitia, Mars, exhibits a characteristic network
+of low-centred polygons ranging from 10 to 300 metres in diameter.  High-
+resolution imagery from HiRISE and CTX reveals that the polygon boundaries
+are associated with shallow troughs that indicate subsurface ice-rich permafrost.
+The formation mechanism is analogous to thermal contraction cracking observed
+in periglacial environments on Earth, particularly in the Siberian lowlands and
+the Canadian Arctic tundra.  Seasonal temperature cycles on Mars drive repeated
+expansion and contraction of near-surface regolith, producing orthogonal crack
+networks over geological timescales.
+
+--- Document 2: Jarosite and Aqueous History ---
+The mineral jarosite was first identified on Mars by the Opportunity rover at
+Meridiani Planum using the Mossbauer spectrometer.  Jarosite (KFe3(SO4)2(OH)6)
+is an iron-potassium sulphate mineral that forms exclusively under acidic and
+oxidising aqueous conditions, with pH below 3.  On Earth, jarosite is a common
+secondary mineral in acid mine drainage environments and is found in weathered
+sulphide deposits in Rio Tinto, Spain, which serves as a key Mars analog site.
+The presence of jarosite in Meridiani Planum deposits provides strong evidence
+for the existence of acidic liquid water during the Noachian to Hesperian
+transition on Mars.
+
+--- Document 3: Mars–Earth Analog Studies Overview ---
+Comparative planetology relies on identifying terrestrial analog environments
+that replicate the physical, chemical, and morphological conditions of Martian
+surface features.  Key analog sites include: (1) the Atacama Desert in Chile,
+which models present-day Mars desiccation and UV radiation conditions;
+(2) the McMurdo Dry Valleys in Antarctica, which serve as periglacial analogs
+for Martian polar processes; (3) the Kamchatka Peninsula in Russia, which
+provides hydrothermal system analogs for ancient Martian volcanic activity;
+and (4) Lanzarote, Spain, which models lava tube environments relevant to
+potential Martian subsurface habitats.
+
+--- Document 4: Knowledge Graph Construction Methodology ---
+The MEA-KG project employs an ontology-guided extraction pipeline to
+automatically construct a knowledge graph from unstructured planetary science
+texts.  The extraction pipeline consists of three phases: (1) named entity
+recognition using a QLoRA fine-tuned transformer model; (2) relation extraction
+using a dual-stage extract-correct mechanism; and (3) ontology-constrained
+validation to ensure semantic consistency.  The resulting knowledge graph is
+stored in a Neo4j graph database with a dual-layer architecture separating the
+schema layer (ontology classes) from the data layer (extracted instances).
+The Graph Chain-of-Thought (Graph-CoT) reasoner then leverages this graph to
+provide grounded, hallucination-free answers to planetary geology questions.

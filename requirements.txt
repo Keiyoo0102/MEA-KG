@@ -1,19 +1,30 @@
+# =============================================================================
+# MEA-KG Project — Python Dependencies
+# =============================================================================
+# Install all dependencies:
+#     pip install -r requirements.txt
+#
+# For QLoRA fine-tuning (GPU required, CUDA 11.8+):
+#     pip install -r requirements.txt
+#     pip install bitsandbytes>=0.41.0 trl>=0.7.0
+#
+# Minimum GPU VRAM for QLoRA (GPT-OSS:20b / Llama-13b): ~16 GB
+# Tested on: NVIDIA A100 40 GB, RTX 3090 24 GB
+# =============================================================================
 
---- Core LLM & API Interaction ---
-
-openai>=1.0.0
+# --- Core LLM & API Interaction ---
+openai>=1.30.0
 instructor>=1.0.0
 tenacity>=8.0.0
+python-dotenv>=1.0.0
 
---- Data Processing & Ontology ---
-
+# --- Data Processing & Ontology ---
 pandas>=2.0.0
 numpy>=1.24.0
-owlready2>=0.45.0
-openpyxl>=3.1.0  # For Excel export/import if needed
+owlready2>=0.46
+openpyxl>=3.1.0
 
---- Web Scraping & Corpus Building ---
-
+# --- Web Scraping & Corpus Building ---
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 selenium>=4.15.0
@@ -21,40 +32,40 @@ undetected-chromedriver>=3.5.0
 webdriver-manager>=4.0.0
 newspaper3k>=0.2.8
 gnews>=0.3.6
-ads>=0.12.3      # NASA ADS API
-pyalex>=0.12     # OpenAlex API
-pymupdf>=1.23.0  # For 'import fitz' (PDF processing)
+ads>=0.12.3
+pyalex>=0.14
+pymupdf>=1.23.0
 
---- NLP & Deep Learning (NER Models) ---
-
-torch>=2.0.0
-transformers>=4.35.0
-datasets>=2.14.0
-sentence-transformers>=2.2.2
+# --- NLP & Deep Learning (NER Models) ---
+torch>=2.1.0
+transformers>=4.40.0
+datasets>=2.18.0
+sentence-transformers>=2.7.0
 seqeval>=1.2.2
 pytorch-crf>=0.7.2
 nltk>=3.8.1
 spacy>=3.7.0
 
---- Knowledge Graph & Database ---
+# --- QLoRA Fine-Tuning (optional, GPU required) ---
+peft>=0.10.0
+# bitsandbytes>=0.41.0    # Uncomment if GPU is available
+# trl>=0.8.0              # Uncomment if GPU is available
+# accelerate>=0.27.0      # Uncomment for multi-GPU support
 
+# --- Knowledge Graph & Database ---
 neo4j>=5.14.0
 
---- Visualization & Application (Streamlit) ---
-
-streamlit>=1.28.0
+# --- Visualization & Application (Streamlit) ---
+streamlit>=1.33.0
 pyvis>=0.3.2
 matplotlib>=3.8.0
 seaborn>=0.13.0
 
---- LangChain (for KBQA) ---
+# --- LangChain (for KBQA module) ---
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-openai>=0.1.0
+langchain-core>=0.2.0
 
-langchain>=0.1.0
-langchain-community>=0.0.10
-langchain-openai>=0.0.5
-langchain-core>=0.1.0
-
---- Utilities ---
-
+# --- Utilities ---
 tqdm>=4.66.0
-python-dotenv>=1.0.0  # Recommended for managing API keys in .env

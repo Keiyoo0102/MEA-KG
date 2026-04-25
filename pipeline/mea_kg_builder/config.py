@@ -1,54 +1,99 @@
+"""
+config.py — Global Configuration for MEA-KG Builder Pipeline
+
+All sensitive credentials (API keys, passwords) are loaded exclusively from
+environment variables.  Copy ``.env.example`` to ``.env``, fill in your values,
+and run ``python-dotenv`` to load them automatically.
+
+Usage
+-----
+    from pipeline.mea_kg_builder.config import OLLAMA_MODEL_NAME, OUTPUT_DIR
+"""
+
 import os
 import logging
+from pathlib import Path
 
-# --- 日志配置 ---
+# ---------------------------------------------------------------------------
+# Optionally load a local .env file (safe no-op if the file is absent or
+# python-dotenv is not installed).
+# ---------------------------------------------------------------------------
+try:
+    from dotenv import load_dotenv
+    # Walk up from this file to find the project root's .env
+    _env_path = Path(__file__).resolve().parents[3] / ".env"
+    load_dotenv(dotenv_path=_env_path, override=False)
+except ImportError:
+    pass  # python-dotenv is optional; rely on shell environment variables
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
+logger = logging.getLogger(__name__)
 
-# --- 路径配置 (使用绝对路径) ---
-# 获取当前文件所在目录
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-# pipeline/mea_kg_builder -> pipeline -> 项目根目录
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(CURRENT_DIR)))
+# ---------------------------------------------------------------------------
+# Path Configuration
+# ---------------------------------------------------------------------------
+# Resolve project root: pipeline/mea_kg_builder/config.py → 3 levels up
+PROJECT_ROOT: Path = Path(__file__).resolve().parents[3]
 
-# 1. 输入：本体定义文件 (OWL)
-ONTOLOGY_DIR = os.path.join(PROJECT_ROOT, 'data', 'ontology')
-ONTOLOGY_OWL_PATH = os.path.join(ONTOLOGY_DIR, 'MEA_Ontology.owl')
+# Input: OWL ontology file
+ONTOLOGY_DIR: Path = PROJECT_ROOT / "data" / "ontology"
+ONTOLOGY_OWL_PATH: Path = ONTOLOGY_DIR / "MEA_Ontology.owl"
 
-# 2. 输入：预处理后的语料库
-CORPUS_DIR = os.path.join(PROJECT_ROOT, 'data', 'corpus_preprocessed')
-ACADEMIC_DIR = os.path.join(CORPUS_DIR, 'academic')
-NEWS_DIR = os.path.join(CORPUS_DIR, 'news')
-WEB_DIR = os.path.join(CORPUS_DIR, 'web')
+# Input: Pre-processed corpus directories
+CORPUS_DIR: Path = PROJECT_ROOT / "data" / "corpus_preprocessed"
+ACADEMIC_DIR: Path = CORPUS_DIR / "academic"
+NEWS_DIR: Path = CORPUS_DIR / "news"
+WEB_DIR: Path = CORPUS_DIR / "web"
 
-# 3. 输入：LoRA 微调权重 (来自 experiments 阶段)
-# 如果您运行了 eval_llm_lora.py，适配器会保存在这里
-LORA_ADAPTER_DIR = os.path.join(PROJECT_ROOT, 'data', 'experiments', 'lora_output')
+# Input: QLoRA / LoRA adapter weights produced by experiments/finetune_qlora.py
+LORA_ADAPTER_DIR: Path = PROJECT_ROOT / "data" / "experiments" / "lora_output"
 
-# 4. 输出：提取结果
-OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'data', 'knowledge_graph_build')
-EXTRACTION_RESULTS_PATH = os.path.join(OUTPUT_DIR, 'extraction_results.jsonl')
+# Output: Extraction results
+OUTPUT_DIR: Path = PROJECT_ROOT / "data" / "knowledge_graph_build"
+EXTRACTION_RESULTS_PATH: Path = OUTPUT_DIR / "extraction_results.jsonl"
 
-# 确保输出目录存在
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+# Ensure the output directory exists at import time
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# --- 模型配置 ---
+# ---------------------------------------------------------------------------
+# LLM / Ollama Configuration  (loaded from environment variables)
+# ---------------------------------------------------------------------------
+OLLAMA_MODEL_NAME: str = os.getenv("OLLAMA_MODEL_NAME", "mea-kg-model")
+OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434/v1")
+# Ollama uses a fixed dummy key; never hardcode real keys here
+OLLAMA_API_KEY: str = os.getenv("OLLAMA_API_KEY", "ollama")
 
-# [关键修改] 指向微调后的模型
-# 注意：Ollama 无法直接加载 .bin/.safetensors 适配器文件。
-# 您需要创建一个 Modelfile (FROM gpt-oss:20b -> ADAPTER /path/to/lora)，然后运行 `ollama create mea-kg-model`
-OLLAMA_MODEL_NAME = "mea-kg-model" # 建议将微调后的模型命名为此名称
-OLLAMA_BASE_URL = "http://127.0.0.1:11434/v1"
-OLLAMA_API_KEY = "ollama"
+# Cloud LLM (OpenAI-compatible)
+OPENAI_API_KEY: str | None = os.getenv("OPENAI_API_KEY")
+OPENAI_BASE_URL: str = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
 
-# 备用：如果没有微调，回退到基础模型
-# OLLAMA_MODEL_NAME = "gpt-oss:20b"
+if not OPENAI_API_KEY:
+    logger.warning(
+        "OPENAI_API_KEY is not set. Cloud LLM features will be unavailable. "
+        "Set it in your .env file or shell environment."
+    )
 
-# --- 提取参数 ---
-# 本地大模型推理显存占用高，建议由 1 开始测试
-MAX_WORKERS = 1 
-# 文本分块大小
-CHUNK_SIZE = 2048
+# Neo4j credentials (also used by import_to_neo4j.py and app.py)
+NEO4J_URI: str = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+NEO4J_USER: str = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASSWORD: str = os.getenv("NEO4J_PASSWORD", "")
+
+if not NEO4J_PASSWORD:
+    logger.warning(
+        "NEO4J_PASSWORD is not set. Database connections will likely fail. "
+        "Set it in your .env file or via the NEO4J_PASSWORD environment variable."
+    )
+
+# ---------------------------------------------------------------------------
+# Extraction Parameters
+# ---------------------------------------------------------------------------
+# Local LLM inference is memory-intensive; start with MAX_WORKERS=1
+MAX_WORKERS: int = int(os.getenv("MAX_WORKERS", "1"))
+CHUNK_SIZE: int = int(os.getenv("CHUNK_SIZE", "2048"))

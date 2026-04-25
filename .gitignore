@@ -1,0 +1,54 @@
+# Environment variables — NEVER commit these
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Data files (too large for version control)
+data/ontology/*.owl
+data/corpus_preprocessed/
+data/knowledge_graph_build/
+data/experiments/
+data/eval_results/
+data/finetune/
+
+# Keep dummy sample tracked
+!data/dummy_sample/
+
+# Neo4j
+neo4j_home/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+tmp/
+temp/
+*.tmp

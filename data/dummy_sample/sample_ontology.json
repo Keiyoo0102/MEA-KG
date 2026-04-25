@@ -1,0 +1,149 @@
+{
+  "ontology_metadata": {
+    "title": "MEA Ontology — Synthetic Sample",
+    "description": "Minimal synthetic subset of the MEA (Mars–Earth Analog) ontology for reviewer reproducibility testing.",
+    "version": "1.0.0-sample",
+    "note": "This is a SYNTHETIC file. It does NOT contain real scientific data. Replace with the full MEA_Ontology.owl for production use."
+  },
+  "classes": [
+    {
+      "id": "MEA:GeologicFeature",
+      "label": "GeologicFeature",
+      "parent": "owl:Thing",
+      "description": "A physical feature of geological origin on a planetary surface."
+    },
+    {
+      "id": "MEA:MorphologicalPattern",
+      "label": "MorphologicalPattern",
+      "parent": "MEA:GeologicFeature",
+      "description": "A recurring geometric or structural pattern observed on planetary surfaces."
+    },
+    {
+      "id": "MEA:PolygonalTerrain",
+      "label": "PolygonalTerrain",
+      "parent": "MEA:MorphologicalPattern",
+      "description": "A terrain type characterised by polygonal networks formed by thermal contraction or desiccation."
+    },
+    {
+      "id": "MEA:Location",
+      "label": "Location",
+      "parent": "owl:Thing",
+      "description": "A named geographical or planetary location."
+    },
+    {
+      "id": "MEA:MartianLocation",
+      "label": "MartianLocation",
+      "parent": "MEA:Location",
+      "description": "A named location on Mars."
+    },
+    {
+      "id": "MEA:TerrestrialLocation",
+      "label": "TerrestrialLocation",
+      "parent": "MEA:Location",
+      "description": "A named location on Earth."
+    },
+    {
+      "id": "MEA:GeologicProcess",
+      "label": "GeologicProcess",
+      "parent": "owl:Thing",
+      "description": "A physical or chemical process that shapes geological features."
+    },
+    {
+      "id": "MEA:ThermalProcess",
+      "label": "ThermalProcess",
+      "parent": "MEA:GeologicProcess",
+      "description": "A geological process driven by thermal cycling (freeze-thaw, expansion-contraction)."
+    },
+    {
+      "id": "MEA:MineralComposition",
+      "label": "MineralComposition",
+      "parent": "owl:Thing",
+      "description": "The mineralogical makeup of a geological unit."
+    }
+  ],
+  "object_properties": [
+    {
+      "id": "MEA:formedBy",
+      "label": "formedBy",
+      "domain": "MEA:GeologicFeature",
+      "range": "MEA:GeologicProcess",
+      "description": "Relates a geological feature to the process responsible for its formation."
+    },
+    {
+      "id": "MEA:analogOf",
+      "label": "analogOf",
+      "domain": "MEA:GeologicFeature",
+      "range": "MEA:GeologicFeature",
+      "description": "Relates a Martian feature to its morphologically or genetically analogous Earth feature.",
+      "is_analogy_relation": true
+    },
+    {
+      "id": "MEA:foundAt",
+      "label": "foundAt",
+      "domain": "MEA:GeologicFeature",
+      "range": "MEA:Location",
+      "description": "Relates a geological feature or mineral to its observed location."
+    },
+    {
+      "id": "MEA:composedOf",
+      "label": "composedOf",
+      "domain": "MEA:GeologicFeature",
+      "range": "MEA:MineralComposition",
+      "description": "Relates a geological unit to its constituent minerals."
+    }
+  ],
+  "sample_instances": [
+    {
+      "id": "inst:UtopiaPlanitiaPGT",
+      "type": "MEA:PolygonalTerrain",
+      "name": "Utopia Planitia polygonal terrain",
+      "location": "inst:UtopiaPlanitiaMars",
+      "formed_by": "inst:ThermalContraction",
+      "analog_of": "inst:SiberianTundraPGT"
+    },
+    {
+      "id": "inst:UtopiaPlanitiaMars",
+      "type": "MEA:MartianLocation",
+      "name": "Utopia Planitia",
+      "coordinates": "49.7°N, 118.0°E",
+      "body": "Mars"
+    },
+    {
+      "id": "inst:SiberianTundraPGT",
+      "type": "MEA:MorphologicalPattern",
+      "name": "Siberian tundra polygon network",
+      "location": "inst:Siberia",
+      "formed_by": "inst:FreezeThawCycling"
+    },
+    {
+      "id": "inst:Siberia",
+      "type": "MEA:TerrestrialLocation",
+      "name": "Siberia",
+      "body": "Earth"
+    },
+    {
+      "id": "inst:ThermalContraction",
+      "type": "MEA:ThermalProcess",
+      "name": "thermal contraction cracking"
+    },
+    {
+      "id": "inst:FreezeThawCycling",
+      "type": "MEA:ThermalProcess",
+      "name": "freeze-thaw cycling"
+    },
+    {
+      "id": "inst:GaleCraterJarosite",
+      "type": "MEA:MineralComposition",
+      "name": "Jarosite",
+      "found_at": "inst:GaleCrater",
+      "indicates": "Acidic aqueous conditions"
+    },
+    {
+      "id": "inst:GaleCrater",
+      "type": "MEA:MartianLocation",
+      "name": "Gale Crater",
+      "coordinates": "5.4°S, 137.8°E",
+      "body": "Mars"
+    }
+  ]
+}

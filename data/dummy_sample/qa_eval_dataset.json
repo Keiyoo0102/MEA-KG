@@ -1,0 +1,44 @@
+[
+  {
+    "id": "L1_001",
+    "level": 1,
+    "query": "What minerals are associated with Gale Crater?",
+    "reference": "Jarosite and other iron sulphate minerals are associated with Gale Crater, indicating past acidic aqueous conditions.",
+    "baseline_answer": "Gale Crater contains various minerals including those detected by the Curiosity rover."
+  },
+  {
+    "id": "L1_002",
+    "level": 1,
+    "query": "What type of terrain is found in Utopia Planitia?",
+    "reference": "Utopia Planitia is characterised by polygonal terrain formed by thermal contraction cracking of permafrost-rich regolith.",
+    "baseline_answer": "Utopia Planitia is a large plain on Mars."
+  },
+  {
+    "id": "L2_001",
+    "level": 2,
+    "query": "How does Siberian tundra inform our understanding of Martian polygonal terrain in Utopia Planitia?",
+    "reference": "Siberian tundra polygon networks are morphological analogs of Utopia Planitia polygonal terrain. Both form through thermal contraction cracking of ice-rich ground, suggesting that Utopia Planitia experienced similar periglacial processes driven by subsurface permafrost.",
+    "baseline_answer": "Earth permafrost environments provide useful context for interpreting Martian surface features."
+  },
+  {
+    "id": "L2_002",
+    "level": 2,
+    "query": "What does the presence of jarosite at Meridiani Planum imply about early Mars water chemistry?",
+    "reference": "Jarosite forms only under acidic (pH < 3) oxidising aqueous conditions. Its presence at Meridiani Planum implies that early Mars hosted acidic liquid water, analogous to acid mine drainage environments on Earth such as Rio Tinto, Spain.",
+    "baseline_answer": "Jarosite indicates water was once present on Mars."
+  },
+  {
+    "id": "L3_001",
+    "level": 3,
+    "query": "Based on Mars–Earth analogy relationships in the knowledge graph, propose a hypothesis about the subsurface ice distribution pattern in Utopia Planitia and its implications for in-situ resource utilisation (ISRU).",
+    "reference": "Drawing on the analogy between Utopia Planitia polygonal terrain and Siberian tundra polygon networks, and given that both form through thermal contraction of ice-rich permafrost, one can hypothesise that Utopia Planitia hosts a laterally continuous, shallow (< 2 m depth) ice-rich permafrost layer beneath the polygon boundaries. This subsurface ice represents a potential ISRU water source for future Mars missions, consistent with SHARAD radar observations of near-surface ice at this latitude.",
+    "baseline_answer": "Mars likely has subsurface ice that could be useful for future missions."
+  },
+  {
+    "id": "L3_002",
+    "level": 3,
+    "query": "Synthesise the geological evidence from the MEA knowledge graph to characterise the palaeoenvironmental conditions of early Mars.",
+    "reference": "Evidence from the MEA-KG graph points to a diverse range of early Martian palaeoenvironments: (1) acidic aqueous conditions indicated by jarosite at Meridiani Planum; (2) cold periglacial conditions evidenced by polygonal terrain in Utopia Planitia analogous to terrestrial permafrost; (3) volcanic hydrothermal activity inferred from mineral assemblages analogous to Kamchatka sites. Collectively, these lines of evidence suggest early Mars experienced episodic, geographically heterogeneous wet conditions superimposed on a predominantly cold, arid background climate.",
+    "baseline_answer": "Early Mars had water and volcanic activity based on orbital and rover data."
+  }
+]
