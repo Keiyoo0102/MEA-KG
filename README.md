@@ -11,7 +11,7 @@ for Comparative Planetology via Ontology-Guided Large Language Models.**
 [![Computers & Geosciences](https://img.shields.io/badge/Journal-Computers%20%26%20Geosciences-orange)]()
 
 ---
-
+ 
 ## 📖 Abstract
 
 **MEA-KG** is a comprehensive open-source framework that bridges the knowledge
