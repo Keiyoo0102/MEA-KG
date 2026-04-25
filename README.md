@@ -438,20 +438,6 @@ The QA benchmark categorises questions by reasoning difficulty:
 
 ---
 
-## 📝 Citation
-
-If you use MEA-KG in your research, please cite:
-
-```bibtex
-@article{meakg2025,
-  title   = {MEA-KG: An Automated Knowledge Graph Construction and Graph-CoT
-             Reasoning Framework for Comparative Planetology},
-  author  = {[Authors]},
-  journal = {Computers \& Geosciences},
-  year    = {2025},
-  doi     = {[DOI]}
-}
-```
 
 ---
 
@@ -473,5 +459,4 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fo
 
 *Disclaimer: This project was developed for academic research purposes.
 Data sourced from NASA, ESA, and scientific publishers belongs to their
-respective copyright holders.  The synthetic dummy dataset is entirely
-fictitious and does not represent real scientific findings.*
+respective copyright holders.*
