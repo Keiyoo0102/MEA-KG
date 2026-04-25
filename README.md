@@ -29,14 +29,6 @@ implements **Graph Chain-of-Thought (Graph-CoT)** — a three-stage white-box
 inference mechanism that grounds LLM responses in retrieved graph evidence,
 eliminating hallucination for planetary geology QA.
 
-**Key results (manuscript):**
-
-| Metric | MEA-Reasoner (Full) | w/o Analogy Rel | Baseline (no graph) |
-|--------|---------------------|-----------------|---------------------|
-| Cov_sem (L1) | **0.91** | 0.87 | 0.73 |
-| Cov_sem (L2) | **0.88** | 0.79 | 0.61 |
-| Cov_sem (L3) | **0.84** | 0.72 | 0.54 |
-| Win Rate     | **74%**  | 58%  | — |
 
 ---
 
